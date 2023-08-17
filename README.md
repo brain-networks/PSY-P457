@@ -135,7 +135,7 @@ Cij = Coactivation_matrix;
 f = figure;
 imagesc(Cij);
 ```
-![plot](../figures/imagesc.png)
+![plot](figures/imagesc.png)
 
 If our network is binary and sparse (only a small fraction of possible connections exist), we can also use the <code>spy</code> command to just highlight connections that exist versus those that do not.
 
