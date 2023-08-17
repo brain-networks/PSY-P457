@@ -3,7 +3,7 @@ This repository contains data, code, and assignments for students enrolled in PS
 
 To make your lives easier, I have included a few examples where I illustrate how to perform some basic operations.
 
-1. [How do I load connectivity data?]([README.md](https://github.com/brain-networks/PSY-P457#how-do-i-load-connectivity-data))
+1. [How do I load connectivity data?](https://github.com/brain-networks/PSY-P457#how-do-i-load-connectivity-data)
 2. [How do I calculate the number of nodes and connections in my network?](README.md)
 3. [How do I calculate the number of connections each node makes?](README.md)
 4. [How do I calculate global measures like characteristic path length and efficiency?](README.md)
