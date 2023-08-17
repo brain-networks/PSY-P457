@@ -3,9 +3,14 @@ This repository contains data, code, and assignments for students enrolled in PS
 
 To make your lives easier, I have included a few examples where I illustrate how to perform some basic operations.
 
-1. [How do I load connectivity data](README.md)
+1. [How do I load connectivity data?](README.md)
+2. [How do I calculate the number of nodes and connections in my network?](README.md)
+3. [How do I calculate the number of connections each node makes?](README.md)
+4. [How do I calculate global measures like characteristic path length and efficiency?](README.md)
+5. [How do I get modules and communities?](README.md)
+6. [When I'm ready to turn in my assignment, what should I give you?](README.md)
 
-## 1. How do I load connectivity data?
+## How do I load connectivity data?
 Datasets that we need for the course are in the <code>data/</code> directory and, unless noted otherwise, stored as <code>.mat</code> files. This file type is specific to MATLAB--you can think of <code>.mat</code> files as bags or boxes in which many variables, including connectivity data, can be stored. When we load a <code>.mat</code> file, we are loading many variables into our workspace.
 
 By default, the datasets included in <code>data/</code> come from the Brain Connectivity Toolbox. Once you've cloned or downloaded this repository, you can create all of your scripts in the <code>m</code> directory. Right now, that directory is empty. If we wanted to load data from a script located in <code>m</code>, we'd write something like:
@@ -26,7 +31,7 @@ load('../directory_x/Coactivation_matrix.mat')
 
 and <code>directory_x</code> doesn't exist, then the above command would return an error.
 
-## 2. How do I calculate the number of nodes and connections in my network?
+## How do I calculate the number of nodes and connections in my network?
 Suppose you've already loaded some data using syntax borrowed from the previous section. Let's also suppose that the variable <code>Cij</code> denotes your connectivity matrix. If we wanted to calculate the number of nodes and connections in the network (irrespective of their weights), we could write the following:
 
 ```Matlab
@@ -41,7 +46,7 @@ dens = density_und(Cij); # <- if your network is undirected
 dens = density_dir(Cij); # <- if your network is directed
 ```
 
-## 3. How do I calculate the number of connections each node makes?
+## How do I calculate the number of connections each node makes?
 The number of connections a node makes is referred to as its degree. For directed networks, we can further break down this number by parsing degree into the number of incoming and outgoing connections. If we wanted to calculate nodes' degrees, we could use the following functions:
 
 ```Matlab
@@ -51,7 +56,7 @@ The number of connections a node makes is referred to as its degree. For directe
 # do the same for nodes in an undirected network
 degrees = degrees_und(Cij);
 ```
-## 4. How do I calculate global measures like characteristic path length and efficiency?
+## How do I calculate global measures like characteristic path length and efficiency?
 The simplest way to do this for any network is to calculate the shortest paths matrix between all pairs of nodes. Again, supposing our connectivity matrix is <code>Cij</code>, we would write the following:
 
 ```Matlab
@@ -77,7 +82,7 @@ D_wei = distance_wei(Cost);
 [lambda_wei,efficiency_wei] = charpath(D);
 ```
 
-## 5. How do I get modules and communities?
+## How do I get modules and communities?
 There are many algorithms for calculating communities -- the simplest is modularity maximization. It is implemented in the Brain Connectivity Toolbox as the <code>community_louvain</code> function. Unlike other measures, it is *not* deterministic and is instead stochastic. This means that each time you run the algorithm, you might obtain a different result. So we need to develop a way to address this issue, but let's start with the case where we only want to run the algorithm once.
 
 ```Matlab
@@ -115,7 +120,7 @@ cicon = consensus_und(Coassignment,thr,num_iter);
 
 The consensus clustering function is useful--it discards weights below a value of <code>thr</code> and then directly clusters the module coassignment matrix <code>Coassignment</code>. Because the modules are almost always better defined in this matrix than in <code>Cij</code>, they will be easier to detect and the algorithm tends to converge to a partition that emphasizes co-assignments that are consistently observed in the initial set of detected partitions, <code>Ci</code>.
 
-## 6. When I'm ready to turn in my assignment, what should I give you?
+## When I'm ready to turn in my assignment, what should I give you?
 The preferred procedure is as follows. Open your script in MATLAB, click on the <code>Publish</code> tab at the top of the screen. Then press the <code>Publish</code> button (a green ``play'' arrow on top of what looks like an envelop). This will convert your script into an <code>html</code> file. Within the file, it will embed images, code, and comments that were generated as part of your script. Compress/zip those files together and submit them on Canvas. *Note: Always check to make sure that the published file contains all the outputs I need to evaluate your submission. For instance, not just the images/figures, but also comments and numerical output.*
 
 However, if you have any issue with the publication procedure, you're always welcome to submit the <code>.m</code> file directly. It's a riskier, because then I have to run the code on my own computer and might be missing dependencies, files you load might not be in the same place on my computer as they are on yours, and (in general) more likely to result in errors.
