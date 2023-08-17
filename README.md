@@ -9,6 +9,7 @@ To make your lives easier, I have included a few examples where I illustrate how
 4. [How do I calculate global measures like characteristic path length and efficiency?](https://github.com/brain-networks/PSY-P457#how-do-i-calculate-global-measures-like-characteristic-path-length-and-efficiency)
 5. [How do I get modules and communities?](https://github.com/brain-networks/PSY-P457#how-do-i-get-modules-and-communities)
 6. [When I'm ready to turn in my assignment, what should I give you?](https://github.com/brain-networks/PSY-P457#when-im-ready-to-turn-in-my-assignment-what-should-i-give-you)
+7. [How do I visualize my network data?](https://github.com/brain-networks/PSY-P457#how-do-i-visualize-my-network-data)
 
 ## How do I load connectivity data?
 Datasets that we need for the course are in the <code>data/</code> directory and, unless noted otherwise, stored as <code>.mat</code> files. This file type is specific to MATLAB--you can think of <code>.mat</code> files as bags or boxes in which many variables, including connectivity data, can be stored. When we load a <code>.mat</code> file, we are loading many variables into our workspace.
