@@ -17,10 +17,35 @@ Note here that the <code>../mat/</code> tells MATLAB to go navigate to one direc
 
 It is also critical that you specify the correct path to the file you're trying to load. For instance, if you wrote:
 
-<code>load('../directory_x/Coactivation_matrix.mat')</code>
+```Matlab
+# load a .mat file from a specific location
+load('../directory_x/Coactivation_matrix.mat')
+```
 
 and <code>directory_x</code> doesn't exist, then the above command would return an error.
 
 ## How do I calculate the number of nodes and connections in my network?
+Suppose you've already loaded some data using syntax borrowed from the previous section. Let's also suppose that the variable <code>Cij</code> denotes your connectivity matrix. If we wanted to calculate the number of nodes and connections in the network (irrespective of their weights), we could write the following:
 
-Suppose you've already loaded some data using syntax borrowed from the previous section. Let's also suppose that the variable <code>Cij</code>
+```Matlab
+# calculate number of nodes
+n_nodes = length(Cij);
+
+# calculate the number of nonzero entries in the matrix
+n_edges = nnz(Cij);
+
+# calculate the density of connections (fraction of existing edges divided by total number possible)
+dens = density_und(Cij); # <- if your network is undirected
+dens = density_dir(Cij); # <- if your network is directed
+```
+
+## How do I calculate the number of connections each node makes?
+The number of connections a node makes is referred to as its degree. For directed networks, we can further break down this number by parsing degree into the number of incoming and outgoing connections. If we wanted to calculate nodes' degrees, we could use the following functions:
+
+```Matlab
+# calculate incoming/outgoing/total degree for each node in a directed network
+[degree_in,degree_out,degree_tot] = degrees_dir(Cij);
+
+# do the same for nodes in an undirected network
+degrees = degrees_und(Cij);
+```
