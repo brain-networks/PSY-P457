@@ -10,7 +10,8 @@ By default, the datasets included in <code>data/</code> come from the Brain Conn
 
 ```Matlab
 {
-<code>load('../mat/Coactivation_matrix.mat')</code>
+# load a .mat file from a specific location
+load('../mat/Coactivation_matrix.mat')
 }
 ```
 
