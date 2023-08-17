@@ -135,7 +135,7 @@ Cij = Coactivation_matrix;
 f = figure;
 imagesc(Cij);
 ```
-![plot](figures/imagesc.png)
+<img src="figures/imagesc.png" alt="drawing" width="400"/>
 
 If our network is binary and sparse (only a small fraction of possible connections exist), we can also use the <code>spy</code> command to just highlight connections that exist versus those that do not.
 
@@ -144,7 +144,7 @@ If our network is binary and sparse (only a small fraction of possible connectio
 f = figure;
 spy(Cij);
 ```
-![plot](figures/spy.png)
+<img src="figures/spy.png" alt="drawing" width="400"/>
 
 Matlab also gives us the ability to use ``force-directed'' layouts for visualizing our network. The algorithms for generating these layouts imagine that edges are springs and they choose 2D coordinates for each node so as to minimize the spring potential energy of the system.
 
@@ -156,7 +156,7 @@ g = graph(Cij);
 f = figure;
 plot(g);
 ```
-![plot](figures/layout.png)
+<img src="figures/layout.png" alt="drawing" width="400"/>
 
 Note that the above figure is very dense and difficult to make much sense of. This is because there are many connections displayed simultaneously, many of which are weak. We can threshold the network and repeat this process, hopefully generating a clearer image.
 
@@ -171,8 +171,7 @@ g = graph(Cij_thresh);
 f = figure;
 plot(g);
 ```
-![plot](figures/layout_threshold.png)
-<img src="figures/layout_threshold.png" alt="drawing" width="200"/>
+<img src="figures/layout_threshold.png" alt="drawing" width="400"/>
 
 ## When I'm ready to turn in my assignment, what should I give you?
 The preferred procedure is as follows. Open your script in MATLAB, click on the <code>Publish</code> tab at the top of the screen. Then press the <code>Publish</code> button (a green ``play'' arrow on top of what looks like an envelop). This will convert your script into an <code>html</code> file. Within the file, it will embed images, code, and comments that were generated as part of your script. Compress/zip those files together and submit them on Canvas. *Note: Always check to make sure that the published file contains all the outputs I need to evaluate your submission. For instance, not just the images/figures, but also comments and numerical output.*
