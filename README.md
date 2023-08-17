@@ -16,7 +16,7 @@ Datasets that we need for the course are in the <code>data/</code> directory and
 By default, the datasets included in <code>data/</code> come from the Brain Connectivity Toolbox. Once you've cloned or downloaded this repository, you can create all of your scripts in the <code>m</code> directory. Right now, that directory is empty. If we wanted to load data from a script located in <code>m</code>, we'd write something like:
 
 ```Matlab
-# load a .mat file from a specific location
+% load a .mat file from a specific location
 load('../mat/Coactivation_matrix.mat')
 ```
 
@@ -25,7 +25,7 @@ Note here that the <code>../mat/</code> tells MATLAB to go navigate to one direc
 It is also critical that you specify the correct path to the file you're trying to load. For instance, if you wrote:
 
 ```Matlab
-# load a .mat file from a specific location
+% load a .mat file from a specific location
 load('../directory_x/Coactivation_matrix.mat')
 ```
 
@@ -35,35 +35,35 @@ and <code>directory_x</code> doesn't exist, then the above command would return 
 Suppose you've already loaded some data using syntax borrowed from the previous section. Let's also suppose that the variable <code>Cij</code> denotes your connectivity matrix. If we wanted to calculate the number of nodes and connections in the network (irrespective of their weights), we could write the following:
 
 ```Matlab
-# calculate number of nodes
+% calculate number of nodes
 n_nodes = length(Cij);
 
-# calculate the number of nonzero entries in the matrix
+% calculate the number of nonzero entries in the matrix
 n_edges = nnz(Cij);
 
-# calculate the density of connections (fraction of existing edges divided by total number possible)
-dens = density_und(Cij); # <- if your network is undirected
-dens = density_dir(Cij); # <- if your network is directed
+% calculate the density of connections (fraction of existing edges divided by total number possible)
+dens = density_und(Cij); % <- if your network is undirected
+dens = density_dir(Cij); % <- if your network is directed
 ```
 
 ## How do I calculate the number of connections each node makes?
 The number of connections a node makes is referred to as its degree. For directed networks, we can further break down this number by parsing degree into the number of incoming and outgoing connections. If we wanted to calculate nodes' degrees, we could use the following functions:
 
 ```Matlab
-# calculate incoming/outgoing/total degree for each node in a directed network
+% calculate incoming/outgoing/total degree for each node in a directed network
 [degree_in,degree_out,degree_tot] = degrees_dir(Cij);
 
-# do the same for nodes in an undirected network
+% do the same for nodes in an undirected network
 degrees = degrees_und(Cij);
 ```
 ## How do I calculate global measures like characteristic path length and efficiency?
 The simplest way to do this for any network is to calculate the shortest paths matrix between all pairs of nodes. Again, supposing our connectivity matrix is <code>Cij</code>, we would write the following:
 
 ```Matlab
-# calculate distance matrix
+% calculate distance matrix
 D = distance_bin(Cij);
 
-# calculate binary path length and efficiency
+% calculate binary path length and efficiency
 [lambda,efficiency] = charpath(D);
 ```
 
@@ -72,13 +72,13 @@ In the above lines, <code>lambda</code> and <code>efficiency</code> are the path
 The above procedure works for a binary network where edges are either 1 or 0. For weighted networks, we can do something similar, but have to first convert our edge weights from measures of affinity (how much two nodes ``like'' one another) to how costly each edge is. We can do that like so:
 
 ```Matlab
-# transform weights into costs via an inversion
+% transform weights into costs via an inversion
 Cost = 1./Cij;
 
-# calculate weighted distance matrix
+% calculate weighted distance matrix
 D_wei = distance_wei(Cost);
 
-# calculate weighted path length and efficiency
+% calculate weighted path length and efficiency
 [lambda_wei,efficiency_wei] = charpath(D);
 ```
 
@@ -86,7 +86,7 @@ D_wei = distance_wei(Cost);
 There are many algorithms for calculating communities -- the simplest is modularity maximization. It is implemented in the Brain Connectivity Toolbox as the <code>community_louvain</code> function. Unlike other measures, it is *not* deterministic and is instead stochastic. This means that each time you run the algorithm, you might obtain a different result. So we need to develop a way to address this issue, but let's start with the case where we only want to run the algorithm once.
 
 ```Matlab
-# run modularity maximization for a network where all edge weights are positive
+% run modularity maximization for a network where all edge weights are positive
 [Ci,Q] = community_louvain(Cij);
 ```
 
@@ -95,25 +95,25 @@ The above lines of code yields two outputs: <code>Ci</code>, which is a vector o
 As I noted earlier, the <code>community_louvain</code> function is stochastic (you can convince yourself of this by running the algorithm twice and then manually comparing the cluster labels against one another). Ideally, what we want to do is run the algorithm *many* times and somehow average the slightly dissimilar results together to obtain a set of consensus clusters. This is more involved, but you can do it using the <code>consensus_und</code> function:
 
 ```Matlab
-# number of times to repeat community detection algorithm
+% number of times to repeat community detection algorithm
 num_iter = 100;
 
-# number of nodes
+% number of nodes
 n_nodes = length(Cij);
 
-# empty array for storing the community labels
+% empty array for storing the community labels
 Ci = zeros(n_nodes,num_iter);
 
-# run the community detection algorithm num_iter times
+% run the community detection algorithm num_iter times
 for iter = 1:num_iter
   Ci(:,iter) = community_louvain(Cij);
 end
 
-# calculate the module coassignment matrix -- for every pair of nodes
-# how many times were they assigned to the same community
+% calculate the module coassignment matrix -- for every pair of nodes
+% how many times were they assigned to the same community
 Coassignment = agreement(Ci)/num_iter;
 
-# node we use the consensus clustering function
+% node we use the consensus clustering function
 thr = 0.5;
 cicon = consensus_und(Coassignment,thr,num_iter);
 ```
