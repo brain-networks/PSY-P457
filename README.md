@@ -171,7 +171,7 @@ g = graph(Cij_thresh);
 f = figure;
 plot(g);
 ```
-![plot](figures/layout_threshold.png)
+![plot](figures/layout_threshold.png | width = 200)
 
 ## When I'm ready to turn in my assignment, what should I give you?
 The preferred procedure is as follows. Open your script in MATLAB, click on the <code>Publish</code> tab at the top of the screen. Then press the <code>Publish</code> button (a green ``play'' arrow on top of what looks like an envelop). This will convert your script into an <code>html</code> file. Within the file, it will embed images, code, and comments that were generated as part of your script. Compress/zip those files together and submit them on Canvas. *Note: Always check to make sure that the published file contains all the outputs I need to evaluate your submission. For instance, not just the images/figures, but also comments and numerical output.*
