@@ -134,13 +134,10 @@ Cij = Coactivation_matrix;
 % create a figure and use imagesc to visualize the matrix
 f = figure;
 imagesc(Cij);
-
+```
 <p align="center">
   <img src="figures/imagesc.png" alt="drawing" width="400"/>
 </p>
-
-```
-
 
 If our network is binary and sparse (only a small fraction of possible connections exist), we can also use the <code>spy</code> command to just highlight connections that exist versus those that do not.
 
