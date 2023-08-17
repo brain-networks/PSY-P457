@@ -144,6 +144,7 @@ If our network is binary and sparse (only a small fraction of possible connectio
 f = figure;
 spy(Cij);
 ```
+![plot](../figures/spy.png)
 
 Matlab also gives us the ability to use ``force-directed'' layouts for visualizing our network. The algorithms for generating these layouts imagine that edges are springs and they choose 2D coordinates for each node so as to minimize the spring potential energy of the system.
 
@@ -155,6 +156,22 @@ g = graph(Cij);
 f = figure;
 plot(g);
 ```
+![plot](../figures/layout.png)
+
+Note that the above figure is very dense and difficult to make much sense of. This is because there are many connections displayed simultaneously, many of which are weak. We can threshold the network and repeat this process, hopefully generating a clearer image.
+
+```Matlab
+% threshold the network
+Cij_thresh = threshold_proportional(Cij,0.01);
+
+% create a graph object
+g = graph(Cij_thresh);
+
+% create a figure and use plot to visualize the network
+f = figure;
+plot(g);
+```
+![plot](../figures/layout_threshold.png)
 
 ## When I'm ready to turn in my assignment, what should I give you?
 The preferred procedure is as follows. Open your script in MATLAB, click on the <code>Publish</code> tab at the top of the screen. Then press the <code>Publish</code> button (a green ``play'' arrow on top of what looks like an envelop). This will convert your script into an <code>html</code> file. Within the file, it will embed images, code, and comments that were generated as part of your script. Compress/zip those files together and submit them on Canvas. *Note: Always check to make sure that the published file contains all the outputs I need to evaluate your submission. For instance, not just the images/figures, but also comments and numerical output.*
