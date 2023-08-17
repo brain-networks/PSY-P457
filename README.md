@@ -11,3 +11,9 @@ By default, the datasets included in <code>data/</code> come from the Brain Conn
 <code>load('../mat/Coactivation_matrix.mat')</code>
 
 Note here that the <code>../mat/</code> tells MATLAB to go navigate to one directory higher than <code>m</code> and then into the <code>mat</code> directory. It then specifies the exact file to load. In this case, it's one named <code>Coactivation_matrix.mat</code>. If you replaced <code>Coactivation_matrix.mat</code> with <code>mac95.mat</code> then you'd load a different <code>.mat</code> file.
+
+It is also critical that you specify the correct path to the file you're trying to load. For instance, if you wrote:
+
+<code>load('../directory_x/Coactivation_matrix.mat')</code>
+
+and <code>directory_x</code> doesn't exist, then the above command would return an error.
