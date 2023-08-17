@@ -74,3 +74,41 @@ D_wei = distance_wei(Cost);
 # calculate weighted path length and efficiency
 [lambda_wei,efficiency_wei] = charpath(D);
 ```
+
+## 5. How do I get modules and communities?
+There are many algorithms for calculating communities -- the simplest is modularity maximization. It is implemented in the Brain Connectivity Toolbox as the <code>community_louvain</code> function. Unlike other measures, it is *not* deterministic and is instead stochastic. This means that each time you run the algorithm, you might obtain a different result. So we need to develop a way to address this issue, but let's start with the case where we only want to run the algorithm once.
+
+```Matlab
+# run modularity maximization for a network where all edge weights are positive
+[Ci,Q] = community_louvain(Cij);
+```
+
+The above lines of code yields two outputs: <code>Ci</code>, which is a vector of community labels for a each node, and <code>Q</code>, which is a measure of the community quality -- i.e. how good the communities are.
+
+As I noted earlier, the <code>community_louvain</code> function is stochastic (you can convince yourself of this by running the algorithm twice and then manually comparing the cluster labels against one another). Ideally, what we want to do is run the algorithm *many* times and somehow average the slightly dissimilar results together to obtain a set of consensus clusters. This is more involved, but you can do it using the <code>consensus_und</code> function:
+
+```Matlab
+# number of times to repeat community detection algorithm
+num_iter = 100;
+
+# number of nodes
+n_nodes = length(Cij);
+
+# empty array for storing the community labels
+Ci = zeros(n_nodes,num_iter);
+
+# run the community detection algorithm num_iter times
+for iter = 1:num_iter
+  Ci(:,iter) = community_louvain(Cij);
+end
+
+# calculate the module coassignment matrix -- for every pair of nodes
+# how many times were they assigned to the same community
+Coassignment = agreement(Ci)/num_iter;
+
+# node we use the consensus clustering function
+thr = 0.5;
+cicon = consensus_und(Coassignment,thr,num_iter);
+```
+
+The consensus clustering function is useful--it discards weights below a value of <code>thr</code> and then directly clusters the module coassignment matrix <code>Coassignment</code>. Because the modules are almost always better defined in this matrix than in <code>Cij</code>, they will be easier to detect and the algorithm tends to converge to a partition that emphasizes co-assignments that are consistently observed in the initial set of detected partitions, <code>Ci</code>.
