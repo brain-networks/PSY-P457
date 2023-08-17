@@ -112,3 +112,10 @@ cicon = consensus_und(Coassignment,thr,num_iter);
 ```
 
 The consensus clustering function is useful--it discards weights below a value of <code>thr</code> and then directly clusters the module coassignment matrix <code>Coassignment</code>. Because the modules are almost always better defined in this matrix than in <code>Cij</code>, they will be easier to detect and the algorithm tends to converge to a partition that emphasizes co-assignments that are consistently observed in the initial set of detected partitions, <code>Ci</code>.
+
+## 6. When I'm ready to turn in my assignment, what should I give you?
+The preferred procedure is as follows. Open your script in MATLAB, click on the <code>Publish</code> tab at the top of the screen. Then press the <code>Publish</code> button (a green ``play'' arrow on top of what looks like an envelop). This will convert your script into an <code>html</code> file. Within the file, it will embed images, code, and comments that were generated as part of your script. Compress/zip those files together and submit them on Canvas. *Note: Always check to make sure that the published file contains all the outputs I need to evaluate your submission. For instance, not just the images/figures, but also comments and numerical output.*
+
+However, if you have any issue with the publication procedure, you're always welcome to submit the <code>.m</code> file directly. It's a riskier, because then I have to run the code on my own computer and might be missing dependencies, files you load might not be in the same place on my computer as they are on yours, and (in general) more likely to result in errors.
+
+But either option is totally fine!
