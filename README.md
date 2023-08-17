@@ -161,7 +161,7 @@ plot(g);
 Note that the above figure is very dense and difficult to make much sense of. This is because there are many connections displayed simultaneously, many of which are weak. We can threshold the network and repeat this process, hopefully generating a clearer image.
 
 ```Matlab
-% threshold the network
+% threshold the network so that it has 1% connection density
 Cij_thresh = threshold_proportional(Cij,0.01);
 
 % create a graph object
