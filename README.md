@@ -3,6 +3,8 @@ This repository contains data, code, and assignments for students enrolled in PS
 
 To make your lives easier, I have included a few examples where I illustrate how to perform some basic operations.
 
+1. [How do I load connectivity data](README.md)
+
 ## 1. How do I load connectivity data?
 Datasets that we need for the course are in the <code>data/</code> directory and, unless noted otherwise, stored as <code>.mat</code> files. This file type is specific to MATLAB--you can think of <code>.mat</code> files as bags or boxes in which many variables, including connectivity data, can be stored. When we load a <code>.mat</code> file, we are loading many variables into our workspace.
 
