@@ -120,6 +120,34 @@ cicon = consensus_und(Coassignment,thr,num_iter);
 
 The consensus clustering function is useful--it discards weights below a value of <code>thr</code> and then directly clusters the module coassignment matrix <code>Coassignment</code>. Because the modules are almost always better defined in this matrix than in <code>Cij</code>, they will be easier to detect and the algorithm tends to converge to a partition that emphasizes co-assignments that are consistently observed in the initial set of detected partitions, <code>Ci</code>.
 
+## How do I visualize my network data?
+There are a few strategies for visualizing network data. For instance, we can visualize the connectivity matrix using the <code>imagesc</code> command. This command shows the connectivity matrix as a ``grid'' -- the strongest connections are assigned warm colors while non-existent or weak connections are assigned cooler colors. Again, supposing our connectivity data is defined by <code>Cij</code>:
+
+```Matlab
+% create a figure and use imagesc to visualize the matrix
+f = figure;
+imagesc(Cij);
+```
+
+If our network is binary and sparse (only a small fraction of possible connections exist), we can also use the <code>spy</code> command to just highlight connections that exist versus those that do not.
+
+```Matlab
+% create a figure and use spy to visualize the matrix
+f = figure;
+spy(Cij);
+```
+
+Matlab also gives us the ability to use ``force-directed'' layouts for visualizing our network. The algorithms for generating these layouts imagine that edges are springs and they choose 2D coordinates for each node so as to minimize the spring potential energy of the system.
+
+```Matlab
+% create a graph object
+g = graph(Cij);
+
+% create a figure and use plot to visualize the network
+f = figure;
+plot(g);
+```
+
 ## When I'm ready to turn in my assignment, what should I give you?
 The preferred procedure is as follows. Open your script in MATLAB, click on the <code>Publish</code> tab at the top of the screen. Then press the <code>Publish</code> button (a green ``play'' arrow on top of what looks like an envelop). This will convert your script into an <code>html</code> file. Within the file, it will embed images, code, and comments that were generated as part of your script. Compress/zip those files together and submit them on Canvas. *Note: Always check to make sure that the published file contains all the outputs I need to evaluate your submission. For instance, not just the images/figures, but also comments and numerical output.*
 
