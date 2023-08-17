@@ -8,7 +8,7 @@ Datasets that we need for the course are in the <code>data/</code> directory and
 
 By default, the datasets included in <code>data/</code> come from the Brain Connectivity Toolbox. Once you've cloned or downloaded this repository, you can create all of your scripts in the <code>m</code> directory. Right now, that directory is empty. If we wanted to load data from a script located in <code>m</code>, we'd write something like:
 
-```
+```Matlab
 {
 <code>load('../mat/Coactivation_matrix.mat')</code>
 }
@@ -21,3 +21,7 @@ It is also critical that you specify the correct path to the file you're trying 
 <code>load('../directory_x/Coactivation_matrix.mat')</code>
 
 and <code>directory_x</code> doesn't exist, then the above command would return an error.
+
+## How do I calculate the number of nodes and connections in my network?
+
+Suppose you've already loaded some data using syntax borrowed from the previous section. Let's also suppose that the variable <code>Cij</code>
