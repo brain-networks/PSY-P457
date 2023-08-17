@@ -122,14 +122,14 @@ cicon = consensus_und(Coassignment,thr,num_iter);
 The consensus clustering function is useful--it discards weights below a value of <code>thr</code> and then directly clusters the module coassignment matrix <code>Coassignment</code>. Because the modules are almost always better defined in this matrix than in <code>Cij</code>, they will be easier to detect and the algorithm tends to converge to a partition that emphasizes co-assignments that are consistently observed in the initial set of detected partitions, <code>Ci</code>.
 
 ## How do I visualize my network data?
-There are a few strategies for visualizing network data. For instance, we can visualize the connectivity matrix using the <code>imagesc</code> command. This command shows the connectivity matrix as a ``grid'' -- the strongest connections are assigned warm colors while non-existent or weak connections are assigned cooler colors. Again, supposing our connectivity data is defined by <code>Cij</code>. In fact, let's make this concrete and use the monkey (macaque) brain network:
+There are a few strategies for visualizing network data. For instance, we can visualize the connectivity matrix using the <code>imagesc</code> command. This command shows the connectivity matrix as a ``grid'' -- the strongest connections are assigned warm colors while non-existent or weak connections are assigned cooler colors. Again, supposing our connectivity data is defined by <code>Cij</code>. In fact, let's make this concrete and use the coactivation matrix from before:
 
 ```Matlab
 % load the macaque dataset
-load('../mat/mac95.mat');
+load('../mat/Coactivation_matrix.mat');
 
-% here, the connectivity matrix is named "matrix", so for the same of continuity, let's just rename it as Cij
-Cij = matrix;
+% here, the connectivity matrix is named "Coactivation_matrix", so for the same of continuity, let's just rename it as Cij
+Cij = Coactivation_matrix;
 
 % create a figure and use imagesc to visualize the matrix
 f = figure;
