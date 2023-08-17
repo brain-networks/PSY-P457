@@ -4,11 +4,11 @@ This repository contains data, code, and assignments for students enrolled in PS
 To make your lives easier, I have included a few examples where I illustrate how to perform some basic operations.
 
 1. [How do I load connectivity data?](https://github.com/brain-networks/PSY-P457#how-do-i-load-connectivity-data)
-2. [How do I calculate the number of nodes and connections in my network?](README.md)
-3. [How do I calculate the number of connections each node makes?](README.md)
-4. [How do I calculate global measures like characteristic path length and efficiency?](README.md)
-5. [How do I get modules and communities?](README.md)
-6. [When I'm ready to turn in my assignment, what should I give you?](README.md)
+2. [How do I calculate the number of nodes and connections in my network?](https://github.com/brain-networks/PSY-P457#how-do-i-calculate-the-number-of-nodes-and-connections-in-my-network)
+3. [How do I calculate the number of connections each node makes?](https://github.com/brain-networks/PSY-P457#how-do-i-calculate-the-number-of-connections-each-node-makes)
+4. [How do I calculate global measures like characteristic path length and efficiency?](https://github.com/brain-networks/PSY-P457#how-do-i-calculate-global-measures-like-characteristic-path-length-and-efficiency)
+5. [How do I get modules and communities?](https://github.com/brain-networks/PSY-P457#how-do-i-get-modules-and-communities)
+6. [When I'm ready to turn in my assignment, what should I give you?](https://github.com/brain-networks/PSY-P457#when-im-ready-to-turn-in-my-assignment-what-should-i-give-you)
 
 ## How do I load connectivity data?
 Datasets that we need for the course are in the <code>data/</code> directory and, unless noted otherwise, stored as <code>.mat</code> files. This file type is specific to MATLAB--you can think of <code>.mat</code> files as bags or boxes in which many variables, including connectivity data, can be stored. When we load a <code>.mat</code> file, we are loading many variables into our workspace.
