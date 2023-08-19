@@ -181,6 +181,21 @@ plot(g);
   <img src="figures/layout_threshold.png" alt="drawing" width="400"/>
 </p>
 
+## I need to generate a "randomized" network. How do I do that?
+A lot of times, we measure properties of our observed network. To contextualize those measurements, we need to compare them against a "null distribution." That is, we need to generate randomized versions of our network that preserve key features--e.g. number of nodes, number of connections, each nodes' degree--but where connections are otherwise formed at random.
+
+The Brain Connectivity Toolbox includes several functions for doing this. They have names like <code>randmio_\*</code>, where <code>\*</code> is either <code>und</code> for undirected networks or <code>dir</code> for networks with directed edges. Let's suppose we're working with the <code>Coactivation_matrix</code> again, which is an undirected network.
+
+To generate a randomized surrogate, we write something like this:
+
+```Matlab
+% generate a random network where each edge is randomized approximate numiter times
+numiter = 32;
+Cij_rand = randmio_und(Cij,numiter);
+```
+
+You can visualize the network using any of the above methods to confirm that it looks different than the original network. You can also confirm that its degree sequence is identical plot plotting each node's degree against its degree in the original network.
+
 ## When I'm ready to turn in my assignment, what should I give you?
 The preferred procedure is as follows. Open your script in MATLAB, click on the <code>Publish</code> tab at the top of the screen. Then press the <code>Publish</code> button (a green ``play'' arrow on top of what looks like an envelop). This will convert your script into an <code>html</code> file. Within the file, it will embed images, code, and comments that were generated as part of your script. Compress/zip those files together and submit them on Canvas. *Note: Always check to make sure that the published file contains all the outputs I need to evaluate your submission. For instance, not just the images/figures, but also comments and numerical output.*
 
