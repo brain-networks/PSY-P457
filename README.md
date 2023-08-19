@@ -187,6 +187,8 @@ A lot of times, we measure properties of our observed network. To contextualize 
 
 The Brain Connectivity Toolbox includes several functions for doing this. They have names like <code>randmio_\*</code>, where <code>\*</code> is either <code>und</code> for undirected networks or <code>dir</code> for networks with directed edges. Let's suppose we're working with the <code>Coactivation_matrix</code> again, which is an undirected network.
 
+This particular class of randomization functions use the Maslov-Sneppen edge-swapping algorithm to generate networks with identical degree sequences as the original network (where each node makes exactly the same number of connections) but where the connections have, otherwise, been randomized.
+
 To generate a randomized surrogate, we write something like this:
 
 ```Matlab
