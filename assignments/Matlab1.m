@@ -62,6 +62,7 @@ clc
 % Add parantheses to the following expression so that the answer becomes 
 %   18.
 
+x = 3*5 + 1;
 
 
 %%  Section #4.
