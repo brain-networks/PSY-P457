@@ -199,6 +199,56 @@ Cij_rand = randmio_und(Cij,numiter);
 
 You can visualize the network using any of the above methods to confirm that it looks different than the original network. You can also confirm that its degree sequence is identical plot plotting each node's degree against its degree in the original network.
 
+## How do I know if my network is a ``small world''?
+Small-world networks have short path length (comparable to a random graph) and large clustering coefficient (comparable to a regular graph). But how do we formally test for this? One strategy is to calculate the ``small-world index'', denoted by the variable $\sigma$. Rather than simply calculating path length and clustering, $L$ and $C$, respectively, we also calculate those same values for an ensemble of random networks, estimating their mean values, $L_r$ and $C_r$ across that ensemble. We the express the original values relative to that of the random networks as normalized coefficients: $L_n = L/L_r$ and $C_n = C/C_r$. We then calculate $\sigma$ as $\sigma = C_n/L_n$.
+
+Intuitively, $L_n \approx 1$ and $C_n >> 1$ for a small world network. Therefore, if $\sigma >> 1$, then we have some evidence that our network is a small-world. The snippet of code below implements this for a binary, undirected network whose adjacency matrix is given by <code>CIJ</code>:
+
+```Matlab
+% get number of edges
+m = nnz(triu(CIJ,1));
+
+% get number of nodes
+n = size(CIJ,1);
+
+% get number of possible edges
+k = n*(n - 1)/2;
+
+% number of random networks
+nrand = 1000;
+
+% preallocate memory for measures
+c_global_random_vec = zeros(nrand,1);
+l_random_vec = zeros(nrand,1);
+
+% generate networks
+for irand = 1:nrand
+
+    % make a random network
+    CIJ_random = zeros(n);
+    CIJ_random(edge_indices(randperm(k,m))) = 1;
+    CIJ_random = sc_random + sc_random';
+
+    % calculate global clustering
+    c_global_random_vec(irand) = mean(clustering_coef_bu(CIJ_random));
+
+    % calculate characteristic path length
+    l_random_vec(irand) = charpath(distance_bin(CIJ_random));
+
+end
+
+% get mean values
+c_global_random = mean(c_global_random_vec);
+l_random = mean(l_random_vec);
+
+% calculate normalized measures
+c_n = c_global/c_global_random;
+l_n = l/l_random;
+
+% calculate small-world index
+sigma = c_n/l_n;
+```
+
 ## When I'm ready to turn in my assignment, what should I give you?
 The preferred procedure is as follows. Open your script in MATLAB, click on the <code>Publish</code> tab at the top of the screen. Then press the <code>Publish</code> button (a green ``play'' arrow on top of what looks like an envelop). This will convert your script into an <code>html</code> file. Within the file, it will embed images, code, and comments that were generated as part of your script. Compress/zip those files together and submit them on Canvas. *Note: Always check to make sure that the published file contains all the outputs I need to evaluate your submission. For instance, not just the images/figures, but also comments and numerical output.*
 
