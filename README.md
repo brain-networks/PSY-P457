@@ -206,6 +206,18 @@ Small-world networks have short path length (comparable to a random graph) and l
 Intuitively, $L_n \approx 1$ and $C_n >> 1$ for a small world network. Therefore, if $\sigma >> 1$, then we have some evidence that our network is a small-world. The snippet of code below implements this for a binary, undirected network whose adjacency matrix is given by <code>CIJ</code>:
 
 ```Matlab
+% calculate nodal clustering coefficient
+c_node = clustering_coef_bu(CIJ);
+
+% calculate global (mean) clustering
+c_global = mean(c_node);
+
+% get distance matrix
+spl_bin = distance_bin(CIJ);
+
+% get characteristic path length
+l = charpath(spl_bin);
+
 % get number of edges
 m = nnz(triu(CIJ,1));
 
@@ -214,6 +226,9 @@ n = size(CIJ,1);
 
 % get number of possible edges
 k = n*(n - 1)/2;
+
+% get indices for edges
+edge_indices = find(triu(ones(n),1));
 
 % number of random networks
 nrand = 1000;
@@ -228,7 +243,7 @@ for irand = 1:nrand
     % make a random network
     CIJ_random = zeros(n);
     CIJ_random(edge_indices(randperm(k,m))) = 1;
-    CIJ_random = sc_random + sc_random';
+    CIJ_random = CIJ_random + CIJ_random';
 
     % calculate global clustering
     c_global_random_vec(irand) = mean(clustering_coef_bu(CIJ_random));
