@@ -4,14 +4,15 @@ This repository contains data, code, and assignments for students enrolled in PS
 To make your lives easier, I have included a few examples where I illustrate how to perform some basic operations.
 
 1. [How do I load connectivity data?](https://github.com/brain-networks/PSY-P457#how-do-i-load-connectivity-data)
-2. [How do I calculate the number of nodes and connections in my network?](https://github.com/brain-networks/PSY-P457#how-do-i-calculate-the-number-of-nodes-and-connections-in-my-network)
-3. [How do I calculate the number of connections each node makes?](https://github.com/brain-networks/PSY-P457#how-do-i-calculate-the-number-of-connections-each-node-makes)
-4. [How do I calculate global measures like characteristic path length and efficiency?](https://github.com/brain-networks/PSY-P457#how-do-i-calculate-global-measures-like-characteristic-path-length-and-efficiency)
-5. [How do I get modules and communities?](https://github.com/brain-networks/PSY-P457#how-do-i-get-modules-and-communities)
-6. [How do I visualize my network data?](https://github.com/brain-networks/PSY-P457#how-do-i-visualize-my-network-data)
-7. [I need to generate a "randomized" network. How do I do that?](https://github.com/brain-networks/PSY-P457#i-need-to-generate-a-randomized-network-how-do-i-do-that)
-8. [How do I know if my network is a ``small world''?](https://github.com/brain-networks/PSY-P457#how-do-i-know-if-my-network-is-a-small-world)
-9. [When I'm ready to turn in my assignment, what should I give you?](https://github.com/brain-networks/PSY-P457#when-im-ready-to-turn-in-my-assignment-what-should-i-give-you)
+2. [How do I call a function or load data from a different directory?](https://github.com/brain-networks/PSY-P457#how-do-I-call-a-function-or-load-data-from-a-different-directory)
+3. [How do I calculate the number of nodes and connections in my network?](https://github.com/brain-networks/PSY-P457#how-do-i-calculate-the-number-of-nodes-and-connections-in-my-network)
+4. [How do I calculate the number of connections each node makes?](https://github.com/brain-networks/PSY-P457#how-do-i-calculate-the-number-of-connections-each-node-makes)
+5. [How do I calculate global measures like characteristic path length and efficiency?](https://github.com/brain-networks/PSY-P457#how-do-i-calculate-global-measures-like-characteristic-path-length-and-efficiency)
+6. [How do I get modules and communities?](https://github.com/brain-networks/PSY-P457#how-do-i-get-modules-and-communities)
+7. [How do I visualize my network data?](https://github.com/brain-networks/PSY-P457#how-do-i-visualize-my-network-data)
+8. [I need to generate a "randomized" network. How do I do that?](https://github.com/brain-networks/PSY-P457#i-need-to-generate-a-randomized-network-how-do-i-do-that)
+9. [How do I know if my network is a ``small world''?](https://github.com/brain-networks/PSY-P457#how-do-i-know-if-my-network-is-a-small-world)
+10. [When I'm ready to turn in my assignment, what should I give you?](https://github.com/brain-networks/PSY-P457#when-im-ready-to-turn-in-my-assignment-what-should-i-give-you)
 
 ## How do I load connectivity data?
 Datasets that we need for the course are in the <code>data/</code> directory and, unless noted otherwise, stored as <code>.mat</code> files. This file type is specific to MATLAB--you can think of <code>.mat</code> files as bags or boxes in which many variables, including connectivity data, can be stored. When we load a <code>.mat</code> file, we are loading many variables into our workspace.
@@ -33,6 +34,33 @@ load('../directory_x/Coactivation_matrix.mat')
 ```
 
 and <code>directory_x</code> doesn't exist, then the above command would return an error.
+
+## How do I call a function or load data from a different directory?
+MATLAB can only ``see'' the files located in your current directory You can figure out your current directory by looking in the "Path bar" at the top of the MATLAB GUI, the "Current Folder" tab, or by typing either of the following commands in the "Command Window":
+
+```Matlab
+% display current directory (doesn't assign to a variable)
+cd
+
+% assign current directory to a variable name
+working_directory = pwd;
+disp(working_directory);
+```
+
+If you want to be able to access from directory X a file saved in directory Y, then you need to execute the following.
+
+```Matlab
+% navigate to directory Y and execute
+path_to_y = pwd;
+```
+
+Once you've done this, return to directory X and write:
+
+```MATLAB
+addpath(path_to_y);
+```
+
+Now you can run functions or load files located in directory Y while your current folder is directory X.
 
 ## How do I calculate the number of nodes and connections in my network?
 Suppose you've already loaded some data using syntax borrowed from the previous section. Let's also suppose that the variable <code>Cij</code> denotes your connectivity matrix. If we wanted to calculate the number of nodes and connections in the network (irrespective of their weights), we could write the following:
