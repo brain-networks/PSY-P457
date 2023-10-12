@@ -5,6 +5,8 @@ clc
 %% Instructions
 % In this assignment, you'll analyze *two* brain networks: one represents
 % functional connectivity and the other represents structural connectivity.
+% To complete this assignment you will need to have downloaded
+% "brain_network_data.mat" and move it to the folder "data".
 
 %% Exercise 1
 % Where is *this* file saved? Move it to the "assignments" folder in your
