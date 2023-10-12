@@ -12,7 +12,8 @@ To make your lives easier, I have included a few examples where I illustrate how
 7. [How do I visualize my network data?](https://github.com/brain-networks/PSY-P457#how-do-i-visualize-my-network-data)
 8. [I need to generate a "randomized" network. How do I do that?](https://github.com/brain-networks/PSY-P457#i-need-to-generate-a-randomized-network-how-do-i-do-that)
 9. [How do I know if my network is a ``small world''?](https://github.com/brain-networks/PSY-P457#how-do-i-know-if-my-network-is-a-small-world)
-10. [When I'm ready to turn in my assignment, what should I give you?](https://github.com/brain-networks/PSY-P457#when-im-ready-to-turn-in-my-assignment-what-should-i-give-you)
+10. [How do I identify rich-club structure in my data?](https://github.com/brain-networks/PSY-P457#how-do-i-identify-rich-club-structure-in-my-data)
+11. [When I'm ready to turn in my assignment, what should I give you?](https://github.com/brain-networks/PSY-P457#when-im-ready-to-turn-in-my-assignment-what-should-i-give-you)
 
 ## How do I load connectivity data?
 Datasets that we need for the course are in the <code>data/</code> directory and, unless noted otherwise, stored as <code>.mat</code> files. This file type is specific to MATLAB--you can think of <code>.mat</code> files as bags or boxes in which many variables, including connectivity data, can be stored. When we load a <code>.mat</code> file, we are loading many variables into our workspace.
@@ -292,6 +293,45 @@ l_n = l/l_random;
 % calculate small-world index
 sigma = c_n/l_n;
 ```
+## How do I identify rich-club structure in my data?
+Rich-clubs are sub-networks composed of high degree nodes (hubs) that are more densely connected to one another than expected by chance. To detect rich club structure, we identify nodes whose degrees are greater than $k$, and calculate the density of connections between them. This density is denoted as $\phi(k)$ and is referred to as the ``rich-club coefficient''.
+
+It's straightforward to measure this for a real-world network. The time-consuming part is that we need to perform a statistical evaluation of $\phi(k)$. That is, we need to compare its value with a null distribution to determine if our observed rich-club coefficient is greater than expected. To do this, we need to calculate the rich-club coefficient for an ensemble of randomized networks. How do we do this?
+
+```Matlab
+% binarize network
+CIJ = +(CIJ ~= 0);
+
+% target degree
+k = 40;
+
+% calculate nodes' degrees
+degrees = degrees_und(CIJ);
+
+% get sub-network
+idx = degrees > k;
+CIJsub = CIJ(idx,idx);
+
+% get density
+phi = density_und(CIJsub);
+
+% generate randomized networks
+nrand = 100; % number of randomized networks
+nswaps = 32; % number of times each edge is "rewired" on average
+for irand = 1:nrand
+  CIJrand = randmio_und(CIJ,nswaps);
+  CIJrandsub = CIJrand(idx,idx);
+  phirand(irand) = density_und(CIJrandsub);
+end
+
+% calculate p-value
+p = mean(phirand >= phi);
+
+% calculate normalized coefficient
+phinorm = mean(phi./phirand);
+```
+
+If the variable <code>p</code> is less than 0.05 (or another statistical criterion) then we can conclude that there's a statistically significant rich-club. Oftentimes, people report a normalized rich-club coefficient as the ratio of the observed coefficient with that of the randomized networks.
 
 ## When I'm ready to turn in my assignment, what should I give you?
 The preferred procedure is as follows. Open your script in MATLAB, click on the <code>Publish</code> tab at the top of the screen. Then press the <code>Publish</code> button (a green ``play'' arrow on top of what looks like an envelop). This will convert your script into an <code>html</code> file. Within the file, it will embed images, code, and comments that were generated as part of your script. Compress/zip those files together and submit them on Canvas. *Note: Always check to make sure that the published file contains all the outputs I need to evaluate your submission. For instance, not just the images/figures, but also comments and numerical output.*
