@@ -2,6 +2,8 @@ clear all
 close all
 clc
 
+addpath('../bct')
+
 %% Instructions
 % In this assignment, you'll analyze *two* brain networks: one represents
 % functional connectivity and the other represents structural connectivity.
